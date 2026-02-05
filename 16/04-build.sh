@@ -2,6 +2,7 @@
 
 device=$1
 buildtype=$2
+buildformat= $3
 
 target=$(tail -n 1 vendor/lineage/vars/aosp_target_release | cut -d "=" -f 2)
 
@@ -20,6 +21,10 @@ export KCFLAGS="$KCFLAGS -isystem /usr/include/x86_64-linux-gnu"
 
 source build/envsetup.sh &&
 lunch lineage_$device-$target-$buildtype &&
+
+if [ "$buildformat" == "Installclean" ]; then
+    m installclean &&
+fi
 
 google_devices="bramble redfin sunfish caiman comet tokay komodo tegu shiba husky akita tangorpro felix lynx panther cheetah bluejay oriole raven sargo bonito blueline crosshatch"
 
@@ -46,3 +51,4 @@ else
 fi
 
 m evolution -j40
+
