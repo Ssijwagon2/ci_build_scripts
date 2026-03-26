@@ -22,8 +22,8 @@ export KCFLAGS="$KCFLAGS -isystem /usr/include/x86_64-linux-gnu"
 source build/envsetup.sh &&
 lunch lineage_$device-$target-$buildtype &&
 
-if [ "$buildformat" == "Installclean" ]; then
-    m installclean &&
+if [[ "$buildformat" == "Installclean" ]]; then
+    m installclean
 fi
 
-m evolution -j40
+m evolution -j$(nproc --all)
